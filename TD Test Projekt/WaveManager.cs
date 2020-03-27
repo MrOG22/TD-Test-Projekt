@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace TD_Test_Projekt
         //skaber en kø med alle vores waves i.
         private Texture2D studentTexture;
         //Texture til vores studerende.
-        private bool finishedWave = false;
+        private bool finishedWave;
         //er den nuværende bølge ovre.
         private Level level;
         
@@ -51,6 +52,48 @@ namespace TD_Test_Projekt
 
                 waves.Enqueue(wave);
             }
+
+            StartNextWave();
         }
+
+        private void StartNextWave()
+        {
+            if (waves.Count > 0)
+            {
+                waves.Peek().Start();
+
+                timeSinceLastWave = 0;
+                finishedWave = false;
+            }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            CurrentWave.Update(gameTime);
+            //for at opdaterer den nuværende bølge af studerende.
+            if(CurrentWave.RoundDone)
+            {
+                finishedWave = true;
+            }
+
+            if(finishedWave)
+            {
+                timeSinceLastWave += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
+            if(timeSinceLastWave > 30.0f)
+            {
+                waves.Dequeue();
+                StartNextWave();
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            CurrentWave.Draw(spriteBatch);
+
+        }
+
     }
+
 }

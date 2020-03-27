@@ -14,7 +14,9 @@ namespace TD_Test_Projekt
 
         Level level = new Level();
         //Student student1;
-        Wave wave;
+        //Wave wave;
+        Towers tower;
+        WaveManager waveManager;
 
         public Game1()
         {
@@ -58,8 +60,12 @@ namespace TD_Test_Projekt
             Texture2D studentTexture = Content.Load<Texture2D>("Student1");
             //student1 = new Student(studentTexture, level.Waypoints.Peek(), 100, false, 0.5f);
             //student1.SetWaypoints(level.Waypoints);
-            wave = new Wave(0, 10, level, studentTexture);
-            wave.Start();
+            //wave = new Wave(0, 10, level, studentTexture);
+            //wave.Start();
+            waveManager = new WaveManager(level, 24, studentTexture);
+
+            Texture2D towerTexture = Content.Load<Texture2D>("TowerTest");
+            tower = new Towers(towerTexture, Vector2.Zero);
 
 
         }
@@ -84,7 +90,9 @@ namespace TD_Test_Projekt
                 Exit();
 
             // TODO: Add your update logic here
-            wave.Update(gameTime);
+            //wave.Update(gameTime);
+
+
             base.Update(gameTime);
         }
 
@@ -99,7 +107,8 @@ namespace TD_Test_Projekt
             // TODO: Add your drawing code here
             level.Draw(spriteBatch);
             //student1.Draw(spriteBatch);
-            wave.Draw(spriteBatch);
+            tower.Draw(spriteBatch);
+            waveManager.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

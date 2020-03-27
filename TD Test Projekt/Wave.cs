@@ -30,7 +30,7 @@ namespace TD_Test_Projekt
         public List<Student> students = new List<Student>();
         //dette er en liste med vores students.
 
-        public bool RoundeDone
+        public bool RoundDone
         {
             get { return students.Count == 0 && studentsSpawned == numberOfStudents; }
         }

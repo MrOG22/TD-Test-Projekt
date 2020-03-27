@@ -87,6 +87,14 @@ namespace TD_Test_Projekt
             get { return waypoints; }
         }
 
+        
+
+        public int GetIndex(int cellX, int cellY)
+        {
+            if (cellX < 0 || cellX > Width || cellY < 0 || cellY > Height)
+                return 0;
+            return map[cellX, cellY];
+        }
 
         public void AddTexture(Texture2D texture) // med denne metode kan vi adde textures til vores liste.
         {
